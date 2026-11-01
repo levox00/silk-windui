@@ -1,4 +1,4 @@
-> **PS99 Silk fork**: this repository contains a customized WindUI runtime for the PS99 Hub. See [SILK_FORK.md](SILK_FORK.md) for the library entry point, provenance, and changes. The original upstream documentation follows.
+> **Silk WindUI** is a customizable WindUI fork for Roblox interfaces across games. See [SILK_FORK.md](SILK_FORK.md) for the runtime, image layer API, attribution, and changes. The original upstream documentation follows.
 
 <!--<h1 align="center">WindUI</h1> -->
 
