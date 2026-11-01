@@ -596,10 +596,12 @@ function TabModule:SelectTab(TabIndex)
 					}, 0.15)
 				end
 				Creator.SetThemeTag(TabObject.UIElements.Main.Frame.TextLabel, {
+					TextColor3 = "TabTextColor",
 					TextTransparency = "TabTextTransparency",
 				}, 0.15)
 				if TabObject.UIElements.Icon and not TabObject.IconColor then
 					Creator.SetThemeTag(TabObject.UIElements.Icon.ImageLabel, {
+						ImageColor3 = "TabIconColor",
 						ImageTransparency = "TabIconTransparency",
 					}, 0.15)
 				end
@@ -616,10 +618,12 @@ function TabModule:SelectTab(TabIndex)
 			}, 0.15)
 		end
 		Creator.SetThemeTag(TabModule.Tabs[TabIndex].UIElements.Main.Frame.TextLabel, {
+			TextColor3 = "TabTextColorActive",
 			TextTransparency = "TabTextTransparencyActive",
 		}, 0.15)
 		if TabModule.Tabs[TabIndex].UIElements.Icon and not TabModule.Tabs[TabIndex].IconColor then
 			Creator.SetThemeTag(TabModule.Tabs[TabIndex].UIElements.Icon.ImageLabel, {
+				ImageColor3 = "TabIconColorActive",
 				ImageTransparency = "TabIconTransparencyActive",
 			}, 0.15)
 		end

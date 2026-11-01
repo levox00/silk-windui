@@ -1183,9 +1183,9 @@ return function(Config)
 	end
 	function Window:SetBackgroundImageTransparency(v)
 		if BGImage and BGImage:IsA("ImageLabel") then
-			BGImage.ImageTransparency = math.floor(v * 10 + 0.5) / 10
+			BGImage.ImageTransparency = math.floor(v * 100 + 0.5) / 100
 		end
-		Window.BackgroundImageTransparency = math.floor(v * 10 + 0.5) / 10
+		Window.BackgroundImageTransparency = math.floor(v * 100 + 0.5) / 100
 	end
 
 	function Window:SetBackgroundTransparency(v)
