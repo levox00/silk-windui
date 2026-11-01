@@ -5336,7 +5336,7 @@ if ap then
 ah=ab.Image(
 ap,
 af.Title,
-0,
+af.IconRadius,
 af.Folder,
 "OpenButton",
 true,

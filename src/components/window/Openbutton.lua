@@ -154,7 +154,7 @@ function OpenButton.New(Window)
             Icon = Creator.Image(
                 newIcon,
                 Window.Title,
-                0,
+                Window.IconRadius,
                 Window.Folder,
                 "OpenButton",
                 true,
