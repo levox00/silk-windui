@@ -156,13 +156,15 @@ return function(Config)
 		Position = UDim2.new(1, -4, 1, -4),
 		AnchorPoint = Vector2.new(1, 1),
 		BackgroundTransparency = 1,
-		ZIndex = 99,
+		ZIndex = 900,
 		Active = true,
 	}, {
 		New("ImageLabel", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
 			Image = "rbxassetid://120997033468887",
+			ThemeTag = { ImageColor3 = "Primary" },
+			ZIndex = 901,
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			ImageTransparency = 1, -- .8; .35
@@ -656,8 +658,9 @@ return function(Config)
 	end
 
 	local BottomDragFrame = Creator.NewRoundFrame(99, "Squircle", {
-		ImageTransparency = 0.8,
-		ImageColor3 = Color3.new(1, 1, 1),
+		ImageTransparency = 0.2,
+		ThemeTag = { ImageColor3 = "Primary" },
+		ZIndex = 900,
 		Size = UDim2.new(0, 0, 0, 4), -- 200
 		Position = UDim2.new(0.5, 0, 1, -8),
 		AnchorPoint = Vector2.new(0.5, 1),
@@ -668,7 +671,7 @@ return function(Config)
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Active = true,
-			ZIndex = 99,
+			ZIndex = 901,
 			Name = "Frame",
 		}),
 	})
@@ -735,8 +738,6 @@ return function(Config)
 			--ZIndex = -9999,
 		}, {
 			BGImage,
-			BottomDragFrame,
-			ResizeHandle,
 		}),
 		--[[New("UIScale", {
 			Scale = 0.89,
@@ -745,6 +746,8 @@ return function(Config)
 		UICorner,
 		FullScreenIcon,
 		FullScreenBlur,
+		BottomDragFrame,
+		ResizeHandle,
 		New("Frame", {
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
@@ -1071,9 +1074,9 @@ return function(Config)
 		function(dragging, frame) -- On drag
 			if not Window.Closed then
 				if dragging and frame == BottomDragFrame.Frame then
-					Tween(BottomDragFrame, 0.1, { ImageTransparency = 0.35 }):Play()
+					Tween(BottomDragFrame, 0.1, { ImageTransparency = 0.05 }):Play()
 				else
-					Tween(BottomDragFrame, 0.2, { ImageTransparency = 0.8 }):Play()
+					Tween(BottomDragFrame, 0.2, { ImageTransparency = 0.2 }):Play()
 				end
 				Window.Position = Window.UIElements.Main.Position
 				Window.Dragging = dragging
@@ -1423,7 +1426,7 @@ return function(Config)
 			Tween(
 				BottomDragFrame,
 				0.45,
-				{ Size = UDim2.new(0, Window.DragFrameSize, 0, 4), ImageTransparency = 0.8 },
+				{ Size = UDim2.new(0, Window.DragFrameSize, 0, 4), ImageTransparency = 0.2 },
 				Enum.EasingStyle.Exponential,
 				Enum.EasingDirection.Out
 			):Play()
@@ -1433,7 +1436,7 @@ return function(Config)
 				Tween(
 					ResizeHandle.ImageLabel,
 					0.45,
-					{ ImageTransparency = 0.8 },
+					{ ImageTransparency = 0.2 },
 					Enum.EasingStyle.Exponential,
 					Enum.EasingDirection.Out
 				):Play()
@@ -2047,7 +2050,7 @@ return function(Config)
 			initialInputPosition = input.Position
 			--Tween(FullScreenIcon, 0.12, {ImageTransparency = .65}):Play()
 			--Tween(FullScreenIcon.ImageLabel, 0.12, {ImageTransparency = 0}):Play()
-			Tween(ResizeHandle.ImageLabel, 0.1, { ImageTransparency = 0.35 }):Play()
+			Tween(ResizeHandle.ImageLabel, 0.1, { ImageTransparency = 0.05 }):Play()
 
 			Creator.AddSignal(input.Changed, function()
 				if input.UserInputState == Enum.UserInputState.End then
@@ -2061,7 +2064,7 @@ return function(Config)
 					FullScreenIcon.Active = false
 					--Tween(FullScreenIcon, 0.2, {ImageTransparency = 1}):Play()
 					--Tween(FullScreenIcon.ImageLabel, 0.17, {ImageTransparency = 1}):Play()
-					Tween(ResizeHandle.ImageLabel, 0.17, { ImageTransparency = 0.8 }):Play()
+					Tween(ResizeHandle.ImageLabel, 0.17, { ImageTransparency = 0.2 }):Play()
 				end
 			end)
 		end
@@ -2113,7 +2116,7 @@ return function(Config)
 			return
 		end
 		if not isResizing then
-			Tween(ResizeHandle.ImageLabel, 0.1, { ImageTransparency = 0.35 }):Play()
+			Tween(ResizeHandle.ImageLabel, 0.1, { ImageTransparency = 0.05 }):Play()
 		end
 	end)
 	Creator.AddSignal(ResizeHandle.MouseLeave, function()
@@ -2121,7 +2124,7 @@ return function(Config)
 			return
 		end
 		if not isResizing then
-			Tween(ResizeHandle.ImageLabel, 0.17, { ImageTransparency = 0.8 }):Play()
+			Tween(ResizeHandle.ImageLabel, 0.17, { ImageTransparency = 0.2 }):Play()
 		end
 	end)
 

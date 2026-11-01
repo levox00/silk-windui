@@ -13149,13 +13149,15 @@ Size=UDim2.new(0,32,0,32),
 Position=UDim2.new(1,-4,1,-4),
 AnchorPoint=Vector2.new(1,1),
 BackgroundTransparency=1,
-ZIndex=99,
+ZIndex=900,
 Active=true,
 },{
 ao("ImageLabel",{
 Size=UDim2.new(1,0,1,0),
 BackgroundTransparency=1,
 Image="rbxassetid://120997033468887",
+ThemeTag={ImageColor3="Primary"},
+ZIndex=901,
 Position=UDim2.new(0.5,0,0.5,0),
 AnchorPoint=Vector2.new(0.5,0.5),
 ImageTransparency=1,
@@ -13648,8 +13650,9 @@ CornerRadius=UDim.new(0,aw.UICorner),
 end
 
 local r=an.NewRoundFrame(99,"Squircle",{
-ImageTransparency=0.8,
-ImageColor3=Color3.new(1,1,1),
+ImageTransparency=0.2,
+ThemeTag={ImageColor3="Primary"},
+ZIndex=900,
 Size=UDim2.new(0,0,0,4),
 Position=UDim2.new(0.5,0,1,-8),
 AnchorPoint=Vector2.new(0.5,1),
@@ -13660,7 +13663,7 @@ BackgroundTransparency=1,
 Position=UDim2.new(0.5,0,0.5,0),
 AnchorPoint=Vector2.new(0.5,0.5),
 Active=true,
-ZIndex=99,
+ZIndex=901,
 Name="Frame",
 }),
 })
@@ -13727,8 +13730,6 @@ ImageColor3="WindowBackground",
 
 },{
 i,
-r,
-az,
 }),
 
 
@@ -13737,6 +13738,8 @@ az,
 ay,
 aA,
 aB,
+r,
+az,
 ao("Frame",{
 Size=UDim2.new(1,0,1,0),
 BackgroundTransparency=1,
@@ -14063,9 +14066,9 @@ aw.UIElements.Main,
 function(z,A)
 if not aw.Closed then
 if z and A==r.Frame then
-ap(r,0.1,{ImageTransparency=0.35}):Play()
+ap(r,0.1,{ImageTransparency=0.05}):Play()
 else
-ap(r,0.2,{ImageTransparency=0.8}):Play()
+ap(r,0.2,{ImageTransparency=0.2}):Play()
 end
 aw.Position=aw.UIElements.Main.Position
 aw.Dragging=z
@@ -14416,7 +14419,7 @@ Enum.EasingDirection.Out
 ap(
 r,
 0.45,
-{Size=UDim2.new(0,aw.DragFrameSize,0,4),ImageTransparency=0.8},
+{Size=UDim2.new(0,aw.DragFrameSize,0,4),ImageTransparency=0.2},
 Enum.EasingStyle.Exponential,
 Enum.EasingDirection.Out
 ):Play()
@@ -14426,7 +14429,7 @@ if aw.Resizable then
 ap(
 az.ImageLabel,
 0.45,
-{ImageTransparency=0.8},
+{ImageTransparency=0.2},
 Enum.EasingStyle.Exponential,
 Enum.EasingDirection.Out
 ):Play()
@@ -15040,7 +15043,7 @@ initialSize=aw.UIElements.Main.Size
 initialInputPosition=M.Position
 
 
-ap(az.ImageLabel,0.1,{ImageTransparency=0.35}):Play()
+ap(az.ImageLabel,0.1,{ImageTransparency=0.05}):Play()
 
 an.AddSignal(M.Changed,function()
 if M.UserInputState==Enum.UserInputState.End then
@@ -15054,7 +15057,7 @@ isResizing=false
 aA.Active=false
 
 
-ap(az.ImageLabel,0.17,{ImageTransparency=0.8}):Play()
+ap(az.ImageLabel,0.17,{ImageTransparency=0.2}):Play()
 end
 end)
 end
@@ -15106,7 +15109,7 @@ if av.WindUI.CurrentInput and av.WindUI.CurrentInput~=L then
 return
 end
 if not isResizing then
-ap(az.ImageLabel,0.1,{ImageTransparency=0.35}):Play()
+ap(az.ImageLabel,0.1,{ImageTransparency=0.05}):Play()
 end
 end)
 an.AddSignal(az.MouseLeave,function()
@@ -15114,7 +15117,7 @@ if av.WindUI.CurrentInput and av.WindUI.CurrentInput~=L then
 return
 end
 if not isResizing then
-ap(az.ImageLabel,0.17,{ImageTransparency=0.8}):Play()
+ap(az.ImageLabel,0.17,{ImageTransparency=0.2}):Play()
 end
 end)
 
