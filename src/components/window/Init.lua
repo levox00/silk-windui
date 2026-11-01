@@ -63,7 +63,9 @@ return function(Config)
 		HidePanelBackground = Config.HidePanelBackground or false,
 		AutoScale = Config.AutoScale ~= false,
 		OpenButton = Config.OpenButton,
-		DragFrameSize = 160,
+		DragFrameSize = Config.DragFrameSize or 160,
+		DragHandleOffset = Config.DragHandleOffset or Vector2.new(0, 4),
+		ResizeHandleOffset = Config.ResizeHandleOffset or Vector2.new(0, 0),
 
 		Position = UDim2.new(0.5, 0, 0.5, 0),
 		UICorner = 16, -- Window.Radius (16)
@@ -153,8 +155,8 @@ return function(Config)
 
 	local ResizeHandle = New("Frame", {
 		Size = UDim2.new(0, 32, 0, 32),
-		Position = UDim2.new(1, -4, 1, -4),
-		AnchorPoint = Vector2.new(1, 1),
+		Position = UDim2.new(1, Window.ResizeHandleOffset.X, 1, Window.ResizeHandleOffset.Y),
+		AnchorPoint = Vector2.new(0.5, 0.5),
 		BackgroundTransparency = 1,
 		ZIndex = 900,
 		Active = true,
@@ -662,8 +664,8 @@ return function(Config)
 		ThemeTag = { ImageColor3 = "Primary" },
 		ZIndex = 900,
 		Size = UDim2.new(0, 0, 0, 4), -- 200
-		Position = UDim2.new(0.5, 0, 1, -8),
-		AnchorPoint = Vector2.new(0.5, 1),
+		Position = UDim2.new(0.5, Window.DragHandleOffset.X, 1, Window.DragHandleOffset.Y),
+		AnchorPoint = Vector2.new(0.5, 0),
 	}, {
 		New("TextButton", {
 			Size = UDim2.new(1, 12, 1, 12),
@@ -737,7 +739,10 @@ return function(Config)
 			},
 			--ZIndex = -9999,
 		}, {
-			BGImage,
+			New("CanvasGroup", {
+				Name = "BackgroundClip", Size = UDim2.fromScale(1, 1),
+				BackgroundTransparency = 1, ClipsDescendants = true,
+			}, { New("UICorner", { CornerRadius = UDim.new(0, Window.UICorner) }), BGImage }),
 		}),
 		--[[New("UIScale", {
 			Scale = 0.89,
@@ -1182,13 +1187,27 @@ return function(Config)
 	end
 
 	function Window:SetBackgroundImage(id)
-		Window.UIElements.Main.Background.ImageLabel.Image = id
+		if BGImage and BGImage:IsA("ImageLabel") then BGImage.Image = id end
 	end
 	function Window:SetBackgroundImageTransparency(v)
 		if BGImage and BGImage:IsA("ImageLabel") then
 			BGImage.ImageTransparency = math.floor(v * 100 + 0.5) / 100
 		end
 		Window.BackgroundImageTransparency = math.floor(v * 100 + 0.5) / 100
+	end
+
+	-- Offsets are relative to the window bottom edge, in pixels.
+	function Window:SetHandleOffsets(dragOffset, resizeOffset)
+		if dragOffset ~= nil then
+			assert(typeof(dragOffset) == "Vector2", "dragOffset must be a Vector2")
+			Window.DragHandleOffset = dragOffset
+			BottomDragFrame.Position = UDim2.new(0.5, dragOffset.X, 1, dragOffset.Y)
+		end
+		if resizeOffset ~= nil then
+			assert(typeof(resizeOffset) == "Vector2", "resizeOffset must be a Vector2")
+			Window.ResizeHandleOffset = resizeOffset
+			ResizeHandle.Position = UDim2.new(1, resizeOffset.X, 1, resizeOffset.Y)
+		end
 	end
 
 	-- Named, non-interactive image layers for any consumer of this library.

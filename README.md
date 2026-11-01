@@ -39,3 +39,21 @@ I might rewrite this project from scratch later.
     ```luau
     loadstring(game:HttpGet('https://raw.githubusercontent.com/Footagesus/WindUI/refs/heads/main/main_example.lua'))()
     ```
+
+### Window handle positioning
+
+Offsets are pixel `Vector2` values relative to the bottom edge. Positive Y moves down; positive X moves right. The resize handle is centered on the bottom-right corner, while the drag bar starts below the window.
+
+```lua
+local window = WindUI:CreateWindow({
+    -- Other window options...
+    DragHandleOffset = Vector2.new(0, 4),
+    ResizeHandleOffset = Vector2.new(0, 0),
+    DragFrameSize = 160,
+})
+
+-- Change either position at runtime; nil leaves that handle unchanged.
+window:SetHandleOffsets(Vector2.new(0, 8), Vector2.new(4, 4))
+```
+
+The background and optional image layers are clipped to the window. Handle offsets do not enlarge the background.

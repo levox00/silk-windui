@@ -13056,7 +13056,9 @@ IgnoreAlerts=av.IgnoreAlerts or false,
 HidePanelBackground=av.HidePanelBackground or false,
 AutoScale=av.AutoScale~=false,
 OpenButton=av.OpenButton,
-DragFrameSize=160,
+DragFrameSize=av.DragFrameSize or 160,
+DragHandleOffset=av.DragHandleOffset or Vector2.new(0,4),
+ResizeHandleOffset=av.ResizeHandleOffset or Vector2.new(0,0),
 
 Position=UDim2.new(0.5,0,0.5,0),
 UICorner=16,
@@ -13146,8 +13148,8 @@ end
 
 local az=ao("Frame",{
 Size=UDim2.new(0,32,0,32),
-Position=UDim2.new(1,-4,1,-4),
-AnchorPoint=Vector2.new(1,1),
+Position=UDim2.new(1,aw.ResizeHandleOffset.X,1,aw.ResizeHandleOffset.Y),
+AnchorPoint=Vector2.new(0.5,0.5),
 BackgroundTransparency=1,
 ZIndex=900,
 Active=true,
@@ -13654,8 +13656,8 @@ ImageTransparency=0.2,
 ThemeTag={ImageColor3="Primary"},
 ZIndex=900,
 Size=UDim2.new(0,0,0,4),
-Position=UDim2.new(0.5,0,1,-8),
-AnchorPoint=Vector2.new(0.5,1),
+Position=UDim2.new(0.5,aw.DragHandleOffset.X,1,aw.DragHandleOffset.Y),
+AnchorPoint=Vector2.new(0.5,0),
 },{
 ao("TextButton",{
 Size=UDim2.new(1,12,1,12),
@@ -13729,7 +13731,7 @@ ImageColor3="WindowBackground",
 },
 
 },{
-i,
+ao("CanvasGroup",{Name="BackgroundClip",Size=UDim2.fromScale(1,1),BackgroundTransparency=1,ClipsDescendants=true},{ao("UICorner",{CornerRadius=UDim.new(0,aw.UICorner)}),i}),
 }),
 
 
@@ -14174,7 +14176,7 @@ end
 end
 
 function aw.SetBackgroundImage(A,B)
-aw.UIElements.Main.Background.ImageLabel.Image=B
+if i and i:IsA("ImageLabel") then i.Image=B end
 end
 function aw.SetBackgroundImageTransparency(A,B)
 if i and i:IsA"ImageLabel"then
@@ -14183,6 +14185,20 @@ end
 aw.BackgroundImageTransparency=math.floor(B*100+0.5)/100
 end
 
+
+	-- Offsets are relative to the window bottom edge, in pixels.
+	function aw:SetHandleOffsets(dragOffset, resizeOffset)
+		if dragOffset ~= nil then
+			assert(typeof(dragOffset) == "Vector2", "dragOffset must be a Vector2")
+			aw.DragHandleOffset = dragOffset
+			r.Position = UDim2.new(0.5, dragOffset.X, 1, dragOffset.Y)
+		end
+		if resizeOffset ~= nil then
+			assert(typeof(resizeOffset) == "Vector2", "resizeOffset must be a Vector2")
+			aw.ResizeHandleOffset = resizeOffset
+			az.Position = UDim2.new(1, resizeOffset.X, 1, resizeOffset.Y)
+		end
+	end
 
 	-- Named, non-interactive image layers for any consumer of this library.
 	-- ZIndex can be overridden; below sits above the background and below content.
