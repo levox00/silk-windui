@@ -20,7 +20,7 @@ The runtime still contains WindUI's optional upstream icon and key-system integr
 
 ## Image layers
 
-`window:SetBackgroundImage(assetId)` sets the window background. `window:SetBackgroundImageTransparency(0.25)` changes its transparency. For additional named, clipped, non-interactive layers:
+`window:SetBackgroundImage(assetId)` sets the window background. `window:SetBackgroundImageTransparency(0.25)` changes its transparency. For additional named, rounded-clipped, non-interactive layers (using CanvasGroup):
 
 ```lua
 window:SetImageLayer("petals", { Image = assetId, Layer = "Above", Transparency = 0.12 })

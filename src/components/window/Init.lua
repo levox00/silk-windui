@@ -1200,7 +1200,8 @@ return function(Config)
 		assert(type(options) == "table" and type(options.Image) == "string", "Image layer needs an asset ID")
 		Window:RemoveImageLayer(name)
 		local z = tonumber(options.ZIndex) or (options.Layer == "Below" and 2 or 500)
-		local clip = Instance.new("Frame")
+		-- CanvasGroup clips child images to its UICorner; Frame does not.
+		local clip = Instance.new("CanvasGroup")
 		clip.Name = "SilkLayer_" .. name
 		clip.Size = UDim2.fromScale(1, 1)
 		clip.BackgroundTransparency = 1
