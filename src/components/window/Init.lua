@@ -1122,7 +1122,7 @@ return function(Config)
 	task.spawn(function()
 		if Window.Icon then
 			local WindowIconContainer = New("Frame", {
-				Size = UDim2.new(0, 22, 0, 22),
+				Size = UDim2.new(0, Window.IconSize, 0, Window.IconSize),
 				BackgroundTransparency = 1,
 				Parent = Window.UIElements.Main.Main.Topbar.Left,
 			})

@@ -5342,7 +5342,7 @@ af.Folder,
 true,
 af.IconThemed
 )
-ah.Size=UDim2.new(0,22,0,22)
+ah.Size=UDim2.new(0,af.IconSize,0,af.IconSize)
 ah.LayoutOrder=-1
 ah.Parent=ag.Button.TextButton
 end
@@ -14111,7 +14111,7 @@ aw.OpenButtonMain=a.load'A'.New(aw)
 task.spawn(function()
 if aw.Icon then
 local A=ao("Frame",{
-Size=UDim2.new(0,22,0,22),
+Size=UDim2.new(0,aw.IconSize,0,aw.IconSize),
 BackgroundTransparency=1,
 Parent=aw.UIElements.Main.Main.Topbar.Left,
 })
