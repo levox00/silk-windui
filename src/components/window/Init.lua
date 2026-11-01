@@ -153,17 +153,17 @@ return function(Config)
 
 	local ResizeHandle = New("Frame", {
 		Size = UDim2.new(0, 32, 0, 32),
-		Position = UDim2.new(1, 0, 1, 0),
-		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(1, -4, 1, -4),
+		AnchorPoint = Vector2.new(1, 1),
 		BackgroundTransparency = 1,
 		ZIndex = 99,
 		Active = true,
 	}, {
 		New("ImageLabel", {
-			Size = UDim2.new(0, 48 * 2, 0, 48 * 2),
+			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
 			Image = "rbxassetid://120997033468887",
-			Position = UDim2.new(0.5, -16, 0.5, -16),
+			Position = UDim2.new(0.5, 0, 0.5, 0),
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			ImageTransparency = 1, -- .8; .35
 		}),
@@ -659,8 +659,8 @@ return function(Config)
 		ImageTransparency = 0.8,
 		ImageColor3 = Color3.new(1, 1, 1),
 		Size = UDim2.new(0, 0, 0, 4), -- 200
-		Position = UDim2.new(0.5, 0, 1, 4),
-		AnchorPoint = Vector2.new(0.5, 0),
+		Position = UDim2.new(0.5, 0, 1, -8),
+		AnchorPoint = Vector2.new(0.5, 1),
 	}, {
 		New("TextButton", {
 			Size = UDim2.new(1, 12, 1, 12),
