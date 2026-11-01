@@ -5954,6 +5954,7 @@ at,
 ax=ac(ah.UICorner,"Squircle-Outline",{
 Size=UDim2.new(1,0,1,0),
 ImageTransparency=1,
+Visible=false,
 Active=false,
 ThemeTag={
 ImageColor3="Text",
@@ -10635,7 +10636,7 @@ ThemeTag={
 
 ImageColor3="SectionBoxBorder",
 },
-ImageTransparency=an.Box and an.BoxBorder and 0.92 or 1,
+ImageTransparency=1,
 Name="Outline",
 ClipsDescendants=true,
 },{

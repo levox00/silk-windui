@@ -324,6 +324,7 @@ return function(Config)
 	local HighlightOutline, HighlightOutlineTable = NewRoundFrame(Element.UICorner, "Squircle-Outline", {
 		Size = UDim2.new(1, 0, 1, 0),
 		ImageTransparency = 1, -- 0.25
+		Visible = false,
 		Active = false,
 		ThemeTag = {
 			ImageColor3 = "Text",

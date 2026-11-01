@@ -148,7 +148,7 @@ function Element:New(Config)
 				--ImageTransparency = "SectionBoxBorderTransparency",
 				ImageColor3 = "SectionBoxBorder",
 			},
-			ImageTransparency = Section.Box and Section.BoxBorder and 0.92 or 1,
+			ImageTransparency = 1, -- Keep the container for layout, without an outline.
 			Name = "Outline",
 			ClipsDescendants = true,
 		}, {
