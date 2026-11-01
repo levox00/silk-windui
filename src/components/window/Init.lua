@@ -1188,6 +1188,45 @@ return function(Config)
 		Window.BackgroundImageTransparency = math.floor(v * 100 + 0.5) / 100
 	end
 
+	-- Named, non-interactive image layers for any consumer of this library.
+	-- ZIndex can be overridden; below sits above the background and below content.
+	Window.ImageLayers = {}
+	function Window:RemoveImageLayer(name)
+		local layer = Window.ImageLayers[name]
+		if layer then layer:Destroy(); Window.ImageLayers[name] = nil end
+	end
+	function Window:SetImageLayer(name, options)
+		assert(type(name) == "string" and name ~= "", "Image layer needs a name")
+		assert(type(options) == "table" and type(options.Image) == "string", "Image layer needs an asset ID")
+		Window:RemoveImageLayer(name)
+		local z = tonumber(options.ZIndex) or (options.Layer == "Below" and 2 or 500)
+		local clip = Instance.new("Frame")
+		clip.Name = "SilkLayer_" .. name
+		clip.Size = UDim2.fromScale(1, 1)
+		clip.BackgroundTransparency = 1
+		clip.BorderSizePixel = 0
+		clip.ClipsDescendants = true
+		clip.Active = false
+		clip.ZIndex = z
+		local corner = Instance.new("UICorner")
+		corner.CornerRadius = UDim.new(0, Window.UICorner)
+		corner.Parent = clip
+		local image = Instance.new("ImageLabel")
+		image.Name = "Image"
+		image.BackgroundTransparency = 1
+		image.Image = options.Image
+		image.ImageTransparency = math.clamp(tonumber(options.Transparency) or 0, 0, 1)
+		image.Size = options.Size or UDim2.fromScale(1, 1)
+		image.Position = options.Position or UDim2.fromScale(0, 0)
+		image.ScaleType = options.ScaleType or Enum.ScaleType.Stretch
+		image.Active = false
+		image.ZIndex = z + 1
+		image.Parent = clip
+		clip.Parent = Window.UIElements.Main
+		Window.ImageLayers[name] = clip
+		return image
+	end
+
 	function Window:SetBackgroundTransparency(v)
 		local rounded = math.floor(tonumber(v) * 10 + 0.5) / 10
 		Config.WindUI.TransparencyValue = rounded
