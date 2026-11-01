@@ -329,7 +329,7 @@ function WindUI:CreateWindow(Config)
 
 	local Theme = WindUI.Themes[Config.Theme or "Dark"]
 
-	--WindUI.Theme = Theme
+	WindUI.Theme = Theme
 	Creator.SetTheme(Theme)
 
 	local hwid = gethwid or function()

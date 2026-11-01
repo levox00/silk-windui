@@ -15543,8 +15543,7 @@ end
 local b=true
 
 local d=aa.Themes[aA.Theme or"Dark"]
-
-
+aa.Theme=d
 as.SetTheme(d)
 
 local f=gethwid or function()

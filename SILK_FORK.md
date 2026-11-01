@@ -4,7 +4,7 @@ A PS99-focused fork of [WindUI](https://github.com/Footagesus/WindUI), preservin
 
 `dist/SilkWindUI.luau` is the tested, self-contained runtime based on the WindUI snapshot bundled with the PS99 Hub. The upstream build header identifies the snapshot as v1.6.65; the original vendored filename recorded it as 1.6.66. It does not require this checkout at runtime. The matching focused changes are also represented in `src/`. The upstream `dist/main.lua` remains the upstream build.
 
-The fork adds theme keys for active and inactive tab text/icons and 1% background-image transparency precision. The PS99 Hub supplies its own theme, artwork, and layout when consuming the library; those are not embedded in this library.
+The fork adds theme keys for active and inactive tab text/icons 1% background-image transparency precision, and keeps the reported theme synchronized with the window theme. The PS99 Hub supplies its own theme, artwork, and layout when consuming the library; those are not embedded in this library.
 
 Roblox usage (replace the commit with the desired revision):
 
