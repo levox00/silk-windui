@@ -1196,6 +1196,23 @@ return function(Config)
 		Window.BackgroundImageTransparency = math.floor(v * 100 + 0.5) / 100
 	end
 
+	-- One user-facing control for surface opacity; text, images and icons are unchanged.
+	function Window:SetUITransparency(value)
+		local t = math.clamp(tonumber(value) or 0, 0, 1)
+		local theme = Creator.Theme
+		if not theme then return end
+		Window.UITransparency = t
+		theme.PanelBackgroundTransparency = t
+		theme.SectionBoxBackgroundTransparency = t ^ 1.10
+		theme.ElementBackgroundTransparency = t ^ 1.25
+		theme.LabelBackgroundTransparency = t ^ 1.25
+		theme.TabBackgroundActiveTransparency = t ^ 1.25
+		theme.TabBackgroundHoverTransparency = t ^ 1.25
+		theme.DropdownBackgroundTransparency = t ^ 1.6
+		theme.DropdownOptionTransparency = t ^ 1.35
+		Creator.SetTheme(theme)
+	end
+
 	-- Offsets are relative to the window bottom edge, in pixels.
 	function Window:SetHandleOffsets(dragOffset, resizeOffset)
 		if dragOffset ~= nil then

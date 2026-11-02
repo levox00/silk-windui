@@ -8224,7 +8224,7 @@ local ak=a.load'd'
 local al=ak.New
 local am=ak.Tween
 
-local an=0.67
+local function an() return ak.GetThemeProperty("DropdownOptionTransparency",ak.Theme) or 0.67 end
 
 function aa.New(ao,ap,aq,ar)
 local as={}
@@ -8242,6 +8242,7 @@ HorizontalAlignment="Center",
 ap.UIElements.Menu=ak.NewRoundFrame(aq.MenuCorner,"Squircle",{
 ThemeTag={
 ImageColor3="DropdownBackground",
+ImageTransparency="DropdownBackgroundTransparency",
 },
 ImageTransparency=1,
 Size=UDim2.new(1,0,1,0),
@@ -8433,7 +8434,7 @@ ax.UIElements.TabItem.Active=false
 ax.Locked=true
 else
 if ax.Selected then
-am(ax.UIElements.TabItem,0.1,{ImageTransparency=an}):Play()
+am(ax.UIElements.TabItem,0.1,{ImageTransparency=an()}):Play()
 
 am(ax.UIElements.TabItem.Frame.Title.TextLabel,0.1,{TextTransparency=0}):Play()
 if ax.UIElements.TabIcon then
@@ -8659,7 +8660,7 @@ ay.Selected=aA==ay.Name
 end
 
 if ay.Selected and not ay.Locked then
-ay.UIElements.TabItem.ImageTransparency=an
+ay.UIElements.TabItem.ImageTransparency=an()
 
 ay.UIElements.TabItem.Frame.Title.TextLabel.TextTransparency=0
 if ay.UIElements.TabIcon then
@@ -8683,7 +8684,7 @@ ay.Selected=true
 am(
 ay.UIElements.TabItem,
 0.1,
-{ImageTransparency=an}
+{ImageTransparency=an()}
 ):Play()
 
 am(ay.UIElements.TabItem.Frame.Title.TextLabel,0.1,{TextTransparency=0}):Play()
@@ -8725,7 +8726,7 @@ end
 aB.Selected=false
 end
 ay.Selected=true
-am(ay.UIElements.TabItem,0.1,{ImageTransparency=an}):Play()
+am(ay.UIElements.TabItem,0.1,{ImageTransparency=an()}):Play()
 
 am(ay.UIElements.TabItem.Frame.Title.TextLabel,0.1,{TextTransparency=0}):Play()
 if ay.UIElements.TabIcon then
@@ -8738,7 +8739,7 @@ end)
 elseif ar=="Menu"then
 if not ay.Locked then
 ak.AddSignal(ay.UIElements.TabItem.MouseEnter,function()
-am(ay.UIElements.TabItem,0.08,{ImageTransparency=an}):Play()
+am(ay.UIElements.TabItem,0.08,{ImageTransparency=an()}):Play()
 end)
 ak.AddSignal(ay.UIElements.TabItem.InputEnded,function()
 am(ay.UIElements.TabItem,0.08,{ImageTransparency=1}):Play()
@@ -8805,7 +8806,7 @@ ap.UIElements.MenuCanvas.Active=true
 ap.UIElements.Menu.Size=UDim2.new(1,0,0,0)
 am(ap.UIElements.Menu,0.1,{
 Size=UDim2.new(1,0,1,0),
-ImageTransparency=0,
+ImageTransparency=ak.GetThemeProperty("DropdownBackgroundTransparency",ak.Theme) or 0,
 },Enum.EasingStyle.Quart,Enum.EasingDirection.Out):Play()
 
 task.spawn(function()
@@ -14185,6 +14186,23 @@ end
 aw.BackgroundImageTransparency=math.floor(B*100+0.5)/100
 end
 
+
+	-- One user-facing control for surface opacity; text, images and icons are unchanged.
+	function aw:SetUITransparency(value)
+		local t = math.clamp(tonumber(value) or 0, 0, 1)
+		local theme = an.Theme
+		if not theme then return end
+		aw.UITransparency = t
+		theme.PanelBackgroundTransparency = t
+		theme.SectionBoxBackgroundTransparency = t ^ 1.10
+		theme.ElementBackgroundTransparency = t ^ 1.25
+		theme.LabelBackgroundTransparency = t ^ 1.25
+		theme.TabBackgroundActiveTransparency = t ^ 1.25
+		theme.TabBackgroundHoverTransparency = t ^ 1.25
+		theme.DropdownBackgroundTransparency = t ^ 1.6
+		theme.DropdownOptionTransparency = t ^ 1.35
+		an.SetTheme(theme)
+	end
 
 	-- Offsets are relative to the window bottom edge, in pixels.
 	function aw:SetHandleOffsets(dragOffset, resizeOffset)
