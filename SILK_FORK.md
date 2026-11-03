@@ -29,3 +29,17 @@ window:RemoveImageLayer("petals")
 ```
 
 `Layer` is `Above` (default) or `Below`. Optional `ZIndex`, `Position`, `Size`, and `ScaleType` control placement. Assets must already be valid Roblox/executor asset IDs; external image URLs need downloading and registration by the consuming script. Reusing a name replaces the old layer. Rendering and input behavior need testing in the target executor and device.
+
+## Matching window control surfaces
+
+The three default title-bar controls can use a shared theme-colored surface that tracks `SetUITransparency`. This is opt-in; other windows and the Mac-style controls keep their existing appearance.
+
+```lua
+local window = WindUI:CreateWindow({
+    -- Other window options...
+    Topbar = { Height = 52, ButtonsType = "Default", ButtonBackground = true },
+})
+window:SetUITransparency(0.65)
+```
+
+`WindowTopbarButtonIcon` controls all three icon colors. `WindowTopbarButtonBackground` defaults to the active-tab background color and can be overridden in the theme. Their backgrounds use the same transparency as the outer panel; hover temporarily adds emphasis and restores the configured transparency when the pointer leaves. The icons remain opaque.

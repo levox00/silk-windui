@@ -25,6 +25,8 @@ return function(Creator)
 		WindowTopbarAuthor = "Text",
 		WindowTopbarIcon = "Icon",
 		WindowTopbarButtonIcon = "Icon",
+		WindowTopbarButtonBackground = "TabBackgroundActive",
+		WindowTopbarButtonBackgroundTransparency = "PanelBackgroundTransparency",
 
 		--WindowSearchBarBackground = "Background",
 		WindowSearchBarBackground = "Dialog",

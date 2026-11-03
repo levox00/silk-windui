@@ -908,6 +908,9 @@ return function(Config)
 	end
 
 	function Window:CreateTopbarButton(Name, Icon, Callback, LayoutOrder, IconThemed, Color, IconSize)
+		local surfaceButton = Window.Topbar.ButtonsType == "Default" and Window.Topbar.ButtonBackground == true
+			and (Name == "Minimize" or Name == "Fullscreen" or Name == "Close")
+		if surfaceButton then IconThemed = true end
 		local IconFrame = Creator.Image(
 			Icon,
 			Icon,
@@ -943,10 +946,11 @@ return function(Config)
 				AnchorPoint = Vector2.new(0.5, 0.5),
 				Position = UDim2.new(0.5, 0, 0.5, 0),
 				ImageColor3 = Window.Topbar.ButtonsType ~= "Default" and (Color or Color3.fromHex("#ff3030")) or nil,
-				ThemeTag = Window.Topbar.ButtonsType == "Default" and {
-					ImageColor3 = "Text",
-				} or nil,
-				ImageTransparency = Window.Topbar.ButtonsType == "Default" and 1 or 0, -- .93
+				ThemeTag = Window.Topbar.ButtonsType == "Default" and (surfaceButton and {
+					ImageColor3 = "WindowTopbarButtonBackground",
+					ImageTransparency = "WindowTopbarButtonBackgroundTransparency",
+				} or { ImageColor3 = "Text" }) or nil,
+				ImageTransparency = Window.Topbar.ButtonsType == "Default" and (surfaceButton and (Window.UITransparency or 0.95) or 1) or 0,
 			},
 			{
 				--[[Creator.NewRoundFrame(
@@ -993,7 +997,7 @@ return function(Config)
 		end)
 		Creator.AddSignal(Button.MouseEnter, function()
 			if Window.Topbar.ButtonsType == "Default" then
-				Tween(Button, 0.15, { ImageTransparency = 0.93 }):Play()
+				Tween(Button, 0.15, { ImageTransparency = surfaceButton and math.max(0, (Window.UITransparency or 0.95) - 0.1) or 0.93 }):Play()
 				--Tween(Button.Outline, 0.15, { ImageTransparency = 0.75 }):Play()
 				--Tween(IconFrame.ImageLabel, .15, {ImageTransparency = 0}):Play()
 			else
@@ -1022,7 +1026,7 @@ return function(Config)
 
 		Creator.AddSignal(Button.MouseLeave, function()
 			if Window.Topbar.ButtonsType == "Default" then
-				Tween(Button, 0.1, { ImageTransparency = 1 }):Play()
+				Tween(Button, 0.1, { ImageTransparency = surfaceButton and (Window.UITransparency or 0.95) or 1 }):Play()
 				--Tween(Button.Outline, 0.1, { ImageTransparency = 1 }):Play()
 				--Tween(IconFrame.ImageLabel, .1, {ImageTransparency = .2}):Play()
 			else
@@ -1203,6 +1207,7 @@ return function(Config)
 		if not theme then return end
 		Window.UITransparency = t
 		theme.PanelBackgroundTransparency = t
+		theme.WindowTopbarButtonBackgroundTransparency = t
 		theme.SectionBoxBackgroundTransparency = t ^ 1.10
 		theme.ElementBackgroundTransparency = t ^ 1.25
 		theme.LabelBackgroundTransparency = t ^ 1.25

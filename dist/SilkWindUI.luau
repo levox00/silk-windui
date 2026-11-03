@@ -500,6 +500,8 @@ WindowTopbarTitle="Text",
 WindowTopbarAuthor="Text",
 WindowTopbarIcon="Icon",
 WindowTopbarButtonIcon="Icon",
+WindowTopbarButtonBackground="TabBackgroundActive",
+WindowTopbarButtonBackgroundTransparency="PanelBackgroundTransparency",
 
 
 WindowSearchBarBackground="Dialog",
@@ -13898,6 +13900,8 @@ end)
 end
 
 function aw.CreateTopbarButton(z,A,B,C,F,G,H,J)
+local surfaceButton=aw.Topbar.ButtonsType=="Default" and aw.Topbar.ButtonBackground==true and (A=="Minimize" or A=="Fullscreen" or A=="Close")
+if surfaceButton then G=true end
 local L=an.Image(
 B,
 B,
@@ -13933,10 +13937,8 @@ ZIndex=9999,
 AnchorPoint=Vector2.new(0.5,0.5),
 Position=UDim2.new(0.5,0,0.5,0),
 ImageColor3=aw.Topbar.ButtonsType~="Default"and(H or Color3.fromHex"#ff3030")or nil,
-ThemeTag=aw.Topbar.ButtonsType=="Default"and{
-ImageColor3="Text",
-}or nil,
-ImageTransparency=aw.Topbar.ButtonsType=="Default"and 1 or 0,
+ThemeTag=aw.Topbar.ButtonsType=="Default" and (surfaceButton and {ImageColor3="WindowTopbarButtonBackground",ImageTransparency="WindowTopbarButtonBackgroundTransparency"} or {ImageColor3="Text"}) or nil,
+ImageTransparency=aw.Topbar.ButtonsType=="Default" and (surfaceButton and (aw.UITransparency or 0.95) or 1) or 0,
 },
 {
 
@@ -13983,7 +13985,7 @@ end
 end)
 an.AddSignal(M.MouseEnter,function()
 if aw.Topbar.ButtonsType=="Default"then
-ap(M,0.15,{ImageTransparency=0.93}):Play()
+ap(M,0.15,{ImageTransparency=surfaceButton and math.max(0,(aw.UITransparency or 0.95)-0.1) or 0.93}):Play()
 
 
 else
@@ -14012,7 +14014,7 @@ end)
 
 an.AddSignal(M.MouseLeave,function()
 if aw.Topbar.ButtonsType=="Default"then
-ap(M,0.1,{ImageTransparency=1}):Play()
+ap(M,0.1,{ImageTransparency=surfaceButton and (aw.UITransparency or 0.95) or 1}):Play()
 
 
 else
@@ -14194,6 +14196,7 @@ end
 		if not theme then return end
 		aw.UITransparency = t
 		theme.PanelBackgroundTransparency = t
+		theme.WindowTopbarButtonBackgroundTransparency = t
 		theme.SectionBoxBackgroundTransparency = t ^ 1.10
 		theme.ElementBackgroundTransparency = t ^ 1.25
 		theme.LabelBackgroundTransparency = t ^ 1.25
